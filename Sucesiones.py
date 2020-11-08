@@ -1,6 +1,6 @@
 from manimlib.imports import *
 
-##grid para animaciones de definicion y definicion de limite
+## Grid para algunas de las animaciones
 
 class Grid(VGroup):
     CONFIG = {
@@ -81,7 +81,7 @@ class ScreenGrid(VGroup):
 
         self.add(grid, axes, labels)
 
-#define la sucesión para usar definicion_sucesiones y definicion de limite:
+#Define la sucesión mostrada en Definicion_Sucesiones y Definicion_Limite_Sucesiones:
 n_sup = 150
 cjto_pts_sucesion = []
 
