@@ -814,28 +814,28 @@ class ConjuntosConexos(Scene):
         abiertos[1].set_color(ORANGE)
         abiertos[3].set_color(YELLOW)
         cjtoU_set = (
-            Circle(radius=1.0, fill_opacity=0.6, stroke_opacity=0)
+            Circle(radius=1.0, fill_opacity=0.6, stroke_opacity=0,stroke_width=0)
             .shift(4.2 * LEFT)
             .set_color(ORANGE)
         )
         cjtoU_label = TextMobject("U").next_to(cjtoU_set, UP).set_color(ORANGE)
         cjtoU = VGroup(cjtoU_set, cjtoU_label)
         cjtoV_set = (
-            Circle(radius=1.0, fill_opacity=0.6, stroke_opacity=0)
+            Circle(radius=1.0, fill_opacity=0.6, stroke_opacity=0,stroke_width=0)
             .shift(1.8 * LEFT)
             .set_color(YELLOW)
         )
         cjtoV_label = TextMobject("V").next_to(cjtoV_set, UP).set_color(YELLOW)
         cjtoV = VGroup(cjtoV_set, cjtoV_label)
         cjtoU1_set = (
-            Circle(radius=1.5, fill_opacity=0.6, stroke_opacity=0)
+            Circle(radius=1.5, fill_opacity=0.6, stroke_opacity=0,stroke_width=0)
             .shift(4.2 * LEFT)
             .set_color(ORANGE)
         )
         cjtoU1_label = TextMobject("U").next_to(cjtoU1_set, UP).set_color(ORANGE)
         cjtoU1 = VGroup(cjtoU1_set, cjtoU1_label)
         cjtoV1_set = (
-            Circle(radius=1.5, fill_opacity=0.6, stroke_opacity=0)
+            Circle(radius=1.5, fill_opacity=0.6, stroke_opacity=0,stroke_width=0)
             .shift(1.8 * LEFT)
             .set_color(YELLOW)
         )
@@ -1805,18 +1805,20 @@ class Cubierta(Scene):
         t_2 = TextMobject("Definimos una", " cubierta", " de ", "$A$")
         t_2.set_color_by_tex_to_color_map({"cubierta": PURPLE_B, "$A$": BLUE})
 
-        t_3 = TextMobject(
+        t_3_1 = TextMobject(
             "como una colección de",
             " subconjuntos ",
             "$\\mathcal{F}$",
-            " $\\subset \\mathbb{R}^n$",
+            " $\\subset \\mathcal{P}(\\mathbb{R}^n)$,",
         )
-        t_3.set_color_by_tex_to_color_map(
+        t_3_1.set_color_by_tex_to_color_map(
             {"subconjuntos": GREEN_D, "$\\mathcal{F}": PURPLE_B}
         )
+        t_3_2 = TextMobject("donde $\\mathcal{P}(\\mathbb{R}^n)$ es el conjunto potencia de $\\mathbb{R}^n$").move_to(1*DOWN)
+        t_3 = VGroup(t_3_1,t_3_2)
 
         t_4 = TextMobject(
-            "tal que ", "$A$", " $\\subseteq \\bigcup_{U \\subset \\mathcal{F}} U$"
+            "tal que ", "$A$", " $\\subseteq \\bigcup_{U \\subset \\mathcal{F}} U$, con $U\\subset\\mathbb{R}^n$"
         )
         t_4.set_color_by_tex_to_color_map({"$A$": BLUE})
         t_4[2][4].set_color(PURPLE_B)
@@ -1842,10 +1844,10 @@ class Cubierta(Scene):
         ).move_to(3 * UP)
         t_8.set_color_by_tex_to_color_map({"subconjuntos $U_{i}$": GREEN_D})
 
-        t_9 = TextMobject("son", " abiertos").move_to(3 * UP)
+        t_9 = TextMobject("son todos", " abiertos").move_to(3 * UP)
         t_9.set_color_by_tex_to_color_map({"abiertos": RED})
 
-        t_10 = TextMobject("o", " cerrados").move_to(3 * UP)
+        t_10 = TextMobject("o todos", " cerrados").move_to(3 * UP)
         t_10.set_color_by_tex_to_color_map({"cerrados": ORANGE})
 
         t_11 = TextMobject(
@@ -1873,19 +1875,16 @@ class Cubierta(Scene):
         )
 
         t_14 = TextMobject(
-            "¿Es posible definir una", " cubierta", " abierta", " tipo rompecabezas?"
+            "Si ", "A", " es ", "cerrado"," y $diam(U_i)<diam(A)$,"
         ).move_to(3 * UP)
-        t_14.set_color_by_tex_to_color_map({"cubierta": PURPLE_B, "abierta": RED})
-
-        t_15 = TextMobject(
-            "¿Qué papel jugaría $Fr(U_{i})$ en este tipo de", " cubierta", "?"
-        ).move_to(3 * UP)
-        t_15.set_color_by_tex_to_color_map(
-            {
-                "cubierta": PURPLE_B,
-            }
-        )
-
+        t_14[1].set_color(BLUE)
+        t_14[3].set_color(ORANGE)
+        t_15_1 = TextMobject("¿existe ", "cubierta ", "abierta de ", "A",", donde").move_to(3*UP)
+        t_15_2 = TextMobject("los elementos ", "$U_i$",  " \\textbf{no} se intersecten?").next_to(t_15_1,DOWN)
+        t_15_1[1].set_color(PURPLE_B)
+        t_15_1[3].set_color(BLUE)
+        t_15_2[1].set_color(GREEN_D)
+        t_15=VGroup(t_15_1,t_15_2)
         ###Conjunto y cubiertas
         Conjunto_Cubierto = SVGMobject("Topologia_SVGs/Cubierta.svg").scale(2)
         A = Conjunto_Cubierto[0].set_color(BLUE).next_to(t_5, 7 * DOWN)
@@ -1917,9 +1916,9 @@ class Cubierta(Scene):
         self.play(ReplacementTransform(t_1, t_2))
         self.wait(2)
         self.play(ReplacementTransform(t_2, t_3))
-        self.wait(2)
+        self.wait(6)
         self.play(ReplacementTransform(t_3, t_4))
-        self.wait(3.5)
+        self.wait(5.5)
         self.play(ReplacementTransform(t_4, Group_1))
         self.wait(2)
         self.play(ReplacementTransform(Group_1, Group_2))
@@ -1942,9 +1941,9 @@ class Cubierta(Scene):
         self.wait(2)
         self.play(ReplacementTransform(t_13, t_14))
         self.play(ReplacementTransform(cover_1.set_stroke(WHITE, 3), cover_2))
-        self.wait(2)
+        self.wait(3)
         self.play(ReplacementTransform(t_14, t_15))
-        self.wait(2.5)
+        self.wait(5)
         self.play(FadeOut(Group_4))
 
 
@@ -1958,14 +1957,15 @@ class Bolas(Scene):
         grid = NumberPlane()
         titulo = TextMobject("Bolas o Vecindades")
         titulo.scale(1.5)
-        text1 = TextMobject("Tomemos un punto en el espacio $\\vec{x}_0$")
+        text1 = TextMobject("Tomemos un punto en el espacio, $\\vec{x}_0$")
         text1.move_to((0, 3, 0))
-        text2 = TextMobject("Y un radio r>0")
+        text2 = TextMobject("Y un radio ", "r ", "> 0")
+        text2[1].set_color(TEAL)
         text2.move_to(text1)
-        text3 = TextMobject(
-            """Podemos seleccionar los puntos que se encuentran\n
-                                a una distancia menor a r de $\\vec{x}_0$"""
-        )
+        text_3_1=TextMobject("Podemos seleccionar los puntos que se encuentran")
+        text_3_2=TextMobject("a una distancia menor a ", "r", " de $\\vec{x}_0$").next_to(text_3_1,DOWN)
+        text_3_2[1].set_color(TEAL)
+        text3=VGroup(text_3_1,text_3_2)
         text3.move_to(text1)
         text4 = TextMobject("""Esto es conocido como una bola o vecindad""")
         text4.move_to(text1)
@@ -1975,13 +1975,13 @@ class Bolas(Scene):
         )
         text5.move_to(text6.get_center() + UP)
         text7 = TextMobject(
-            """Notemos que, por lo anterior, la bola depende de la norma \n
-                            o distancia definida en el espacio"""
+            """Notemos que, por lo anterior, la bola depende de la \n
+                           métrica o norma definida en el espacio"""
         )
         text8 = TextMobject(
             """ \\textquestiondown Puedes imaginar c\\'{o}mo se ver\\'{i}a una bola \n
                             con otras normas, por ejemplo con la norma \n
-                             infinito o la distancia 1?"""
+                             infinito o la norma 1?"""
         )
 
         text1.bg = SurroundingRectangle(
@@ -2015,10 +2015,15 @@ class Bolas(Scene):
         puntolabel = TextMobject("$$\\vec{x}_0$$")
         puntolabel.scale(1.15)
         punto.move_to(x0)
-        puntolabel.set_color(YELLOW_E)
+        puntolabel.set_color(YELLOW_B)
         puntolabel.move_to((0.39, 0.39, 0))
 
-        bola = Circle(radius=r, fill_color=YELLOW_D, color=YELLOW_E, fill_opacity=0.6)
+        bola = Dot(radius=r, fill_color=YELLOW_D, fill_opacity=0.6)
+        linea_r = Line((0,0,0),(2,0,0)).set_color(TEAL)
+        label_r = TextMobject("r").move_to(0.75*RIGHT+0.25*DOWN).set_color(TEAL)
+        Bola_1 = VGroup(bola,linea_r,label_r)
+        
+
 
         # animación
 
@@ -2030,14 +2035,14 @@ class Bolas(Scene):
         self.play(FadeIn(punto), FadeIn(puntolabel))
         self.wait(3.2)
         self.play(ReplacementTransform(Group11, Group12))
-        self.wait(2.5)
+        self.wait(5)
         self.play(ReplacementTransform(Group12, Group13))
         self.wait(6)
-        self.play(FadeIn(bola))
+        self.play(FadeIn(Bola_1))
         self.wait()
         self.play(ReplacementTransform(Group13, Group14), FadeOut(puntolabel))
         self.wait(4.5)
-        self.play(FadeOut(bola), FadeOut(grid), FadeOut(Group14), FadeOut(punto))
+        self.play(FadeOut(Bola_1), FadeOut(grid), FadeOut(Group14), FadeOut(punto))
         self.wait()
         self.play(Write(text5))
         self.play(Write(text6))
@@ -2046,7 +2051,7 @@ class Bolas(Scene):
         self.play(Write(text7))
         self.wait(5.5)
         self.play(ReplacementTransform(text7, text8))
-        self.wait(7)
+        self.wait(10)
         self.play(FadeOut(text8))
 
 
@@ -2059,12 +2064,13 @@ class TiposPuntos(Scene):
     def construct(self):
         titulo = TextMobject("Tipos de Puntos")
         titulo.scale(1.5)
-        interior_t = TextMobject("Punto interior")
-        interior_t.move_to((-3, 2.5, 0)).set_color(RED)
-        exterior_t = TextMobject("Punto exterior")
-        exterior_t.move_to((-3, 1, 0)).set_color(BLUE)
-        frontera_t = TextMobject("Punto frontera")
-        frontera_t.move_to((-3, 0, 0)).set_color(GREEN)
+        t_1 = TextMobject("Sea A un conjunto cualquiera")
+        interior_t = TextMobject("Punto interior de A")
+        interior_t.move_to((-3.75, 2.5, 0)).set_color(RED)
+        exterior_t = TextMobject("Punto exterior de A")
+        exterior_t.move_to((-3.75, 1, 0)).set_color(BLUE)
+        frontera_t = TextMobject("Punto frontera de A")
+        frontera_t.move_to((-3.75, 0, 0)).set_color(GREEN)
         interior_def = TexMobject(
             "\\exists r>0, \\ tq. \\ \\mathbb{B}_r(x_0)\\subset A"
         )
@@ -2086,7 +2092,6 @@ class TiposPuntos(Scene):
             """Pero \\textquestiondown qu\\'{e} significa geom\\'{e}tricamente?"""
         )
 
-        texto_2 = TextMobject("Demos un conjunto $A$ cualquiera")
 
         texto_3 = (
             TextMobject(
@@ -2126,7 +2131,7 @@ class TiposPuntos(Scene):
         texto_6[1].set_color(GREEN)
 
         texto_7t = TextMobject(
-            """Intenta probar lo siguiente: (Si $A$ es un conjunto)"""
+            """Intenta probar lo siguiente: Si $A$ es un conjunto"""
         )
         texto_71 = TextMobject("""1) \\ $Int(A)\\cap Fr(A) = \\emptyset$""")
         texto_72 = TextMobject("""2) \\ $Int(A)\\cap Ext(A) = \\emptyset$""")
@@ -2134,7 +2139,7 @@ class TiposPuntos(Scene):
         texto_74 = TextMobject("""4) \\ $Int(A^c) = Ext(A)$""")
 
         texto_7t.shift(3 * UP)
-        texto_71.next_to(texto_7t, DOWN)
+        texto_71.next_to(texto_7t, 2*DOWN)
         texto_72.next_to(texto_71, DOWN)
         texto_73.next_to(texto_72, DOWN)
         texto_74.next_to(texto_73, DOWN)
@@ -2152,7 +2157,7 @@ class TiposPuntos(Scene):
 
         flecha_int = Arrow((-1.5, 2.5, 0), (0.3, 2.5, 0)).set_color(RED)
         flecha_ext = Arrow((-1.5, 1, 0), (0.3, 1, 0)).set_color(BLUE)
-        flecha_fr = Arrow((-1.5, 0, 0), (1.5, 0, 0)).set_color(GREEN)
+        flecha_fr = Arrow((-1.5, 0, 0), (0.3, 0, 0)).set_color(GREEN)
 
         cjto_int = Circle(
             radius=1, color=RED, fill_color=RED, fill_opacity=0.7
@@ -2196,17 +2201,18 @@ class TiposPuntos(Scene):
         self.play(Write(titulo))
         self.wait(2)
         self.play(FadeOut(titulo))
+        self.play(Write(t_1))
+        self.wait(2)
+        self.play(FadeOut(t_1))
         self.play(Write(gpo_11))
         self.wait(1.4)
         self.play(Write(gpo_12))
         self.wait(1.4)
         self.play(Write(gpo_13))
-        self.wait(1.7)
+        self.wait(3)
         self.play(ReplacementTransform(gpo_1, texto_1))
         self.wait(2.6)
-        self.play(ReplacementTransform(texto_1, texto_2))
-        self.wait(3)
-        self.play(ReplacementTransform(texto_2, conjunto))
+        self.play(ReplacementTransform(texto_1, conjunto))
         self.wait(2.7)
         self.play(Write(punto_int), Write(punto_ext), Write(punto_fr))
         self.wait(1.2)
