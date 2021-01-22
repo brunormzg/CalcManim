@@ -275,6 +275,7 @@ class Asociatividad(Scene):
         self.play(FadeOut(Group111), FadeOut(Group12), FadeOut(Group13))
         self.wait(2)
 
+        
 #########################
 #### INVERSO ADITIVO #####
 #########################
